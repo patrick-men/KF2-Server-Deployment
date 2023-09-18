@@ -3,8 +3,8 @@
 This server runs with kubernetes. In my setup, it's a on-prem k8s - but this can also be done by using Kind or MiniKube.
 It's a setup that doesn't advertise the server on the server list; without further configuraion, it's to be used as a private server for you and your friends.
 
-> This setup is for a linux server! <br>
-> :warning: There are dummy/default values in the .yaml files (marked by a comment) - make sure that you filled them with your respective values :warning:
+> :warning: This setup is for a linux server! <br>
+> There are dummy/default values in the .yaml files (marked by a comment) - make sure that you filled them with your respective values :warning:
 
 > :warning: Some knowledge of linux, port-forwarding and kubernetes can help you out a lot here. I can't guarantee that you can get it to run without said knowledge, as troubleshooting won't be easy otherwise. :warning:
 
@@ -98,7 +98,11 @@ In this screenshot we can see that the port 7777 has been mapped to 31992, and p
 
 > :warning: This is done at your own risk - be sure to know the risks of port-forwarding. :warning:
 
-Go into your router, and forward a port of choice (this one will be used by your friends to connect) to the port that 7777 is mapped to (in my case, 31992). Now your friends can connect doing the following in-game:
+Go into your router, and forward a port of choice (this one will be used by your friends to connect) to the port that 7777 is mapped to (in my case, 31992). Be sure to follow the official documentation of your router
+
+### Connecting to the server
+
+Now your friends can connect by doing the following in-game:
 
 1. Press F3
 2. Type `open <your-public-ip>:<port>`
