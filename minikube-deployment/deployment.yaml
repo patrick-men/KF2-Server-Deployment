@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kf2-game-server
+  namespace: kf2-server
+spec:
+  selector:
+    matchLabels:
+      app: kf2-game-server
+  template:
+    metadata:
+      labels:
+        app: kf2-game-server
+    spec:
+      containers:
+        - name: kf2-container
+          image: gameservermanagers/gameserver:kf2
+          ports:
+            - containerPort: 7777
+          volumeMounts:
+            - name: kf2data
+              mountPath: /data
+      volumes:
+        - name: kf2data
+          persistentVolumeClaim:
+            claimName: kf2-pvc

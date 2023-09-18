@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kf2-service
+  namespace: kf2
+spec:
+  selector:
+    app: kf2-game-server
+  type: NodePort
+  ports:
+    - name: port-7777-game
+      protocol: UDP
+      port: 7777   
+      targetPort: 7777  
+    - name: port-8880-web
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
