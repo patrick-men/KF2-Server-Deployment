@@ -4,9 +4,9 @@ This server runs with kubernetes. In my setup, it's a on-prem k8s - but this can
 It's a setup that doesn't advertise the server on the server list; without further configuraion, it's to be used as a private server for you and your friends.
 
 > This setup is for a linux server! <br>
-> There are dummy/default values in the .yaml files (marked by a comment) - make sure that you filled them with your respective values
+> :warning: There are dummy/default values in the .yaml files (marked by a comment) - make sure that you filled them with your respective values :warning:
 
-> Some knowledge of linux, port-forwarding and kubernetes can help you out a lot here. I can't guarantee that you can get it to run without said knowledge, as troubleshooting won't be easy otherwise.
+> :warning: Some knowledge of linux, port-forwarding and kubernetes can help you out a lot here. I can't guarantee that you can get it to run without said knowledge, as troubleshooting won't be easy otherwise. :warning:
 
 ## Setup Kind
 
@@ -21,7 +21,7 @@ Now we need to deploy the kubernetes resources required for the server to run. C
 
 With this done, you can run `kubectl get pods -n kf2-server` - this will show you the pod running the game server. Copy the name of the pod (should be something along the lines of `kf2-game-server-...`). Next up, run `kubectl logs -f <pod-name> -n kf2-server`: This shows you the live logs of the installation process of the server. Once it's done, you should see something along the lines of `DevOnline: Sending out playfab requests...`.
 
-> Note that the first installation can take a while - in my case, with HDDs, it took 20-30 minutes.
+> :warning: Note that the first installation can take a while - in my case, with HDDs, it took 20-30 minutes. :warning:
 
 # tl;dr Kind
 
@@ -29,7 +29,7 @@ With this done, you can run `kubectl get pods -n kf2-server` - this will show yo
 2. `git clone https://github.com/patrick-men/KF2-Kubernetes.git`
 3. Change directory into cloned repository > `kind create cluster --config cluster.yaml --name kf2server-cluster`
 4. `kubectl create namespace kf2-server`
-4. `kubectl create -f .` <br>
+4. `kubectl create -f .` (there may be a warning regarding `cluster.yaml` which can be ignored)<br>
 _Optional_ <br>
 6. `kubectl get pods -n kf2-server`
 7. Copy the name of the pod listed
@@ -61,19 +61,42 @@ _Optional_ <br>
 7. Copy the name of the pod listed
 8. `kubectl logs -f <pod-name> -n kf2-server` to show you live logs
 
+## Restarting the server
+
+There are cases where you need to shut down the machine running the server, or you want to apply some change you made to the configuration files. To do this, simply run:
+
+1. `cd /path/to/kind-deployment` OR `cd /path/to/minikube-deployment`
+2. `kubectl delete -f`  (there may be a warning regarding `cluster.yaml` which can be ignored)
+3. `kubectl create -f`
+
+## Server Configurations
+
+> Official Documentation: https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)
+
+The server runs on its own without any configurations. My recommendation is, however, to change the following things:
+
+### Enable WebAdmin
+
+The values you need to set are found in `/mountpath/serverfiles/KFGame/Config/kf2server/KFWeb.ini`. Here, set `bEnabled=true`. Now restart your server
+
+### Enable password protection
+
+This can be done in the file `/mountpath/kf2/serverfiles/KFGame/Config/kf2server/LinuxServer-KFGame.ini`. 
+
 ## Connecting to the server
 
 With everything set up, it's time to play.. but you first need to set up a few more things :D
 
 Firstly, you need to find out what port on your local device/server listens and communicates to the game server. You can find that by running `kubectl get svc -n kf2-server` - this will show you what port you need to aim at.
 
-Example: ![Alt text](image.png)
+Example: <br>
+![Alt text](image.png) <br>
 
 In this screenshot we can see that the port 7777 has been mapped to 31992, and port 8080 to 31111. These are the ports that need to be port-forwarded to.
 
 ### Port-Forwarding
 
-> This is done at your own risk - be sure to know the risks of port-forwarding. 
+> :warning: This is done at your own risk - be sure to know the risks of port-forwarding. :warning:
 
 Go into your router, and forward a port of choice (this one will be used by your friends to connect) to the port that 7777 is mapped to (in my case, 31992). Now your friends can connect doing the following in-game:
 
