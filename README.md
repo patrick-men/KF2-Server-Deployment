@@ -1,9 +1,9 @@
 # KF2-Kubernetes
 
 This server runs with kubernetes. In my setup, it's a on-prem k8s - but this can also be done by using Kind or MiniKube.
-It's a functional setup that doesn't advertise the server on the server list. It's thought as a private server for you and your friends.
+It's a setup that doesn't advertise the server on the server list; without further configuraion, it's to be used as a private server for you and your friends.
 
-> This setup is for a linux server!
+> This setup is for a linux server! <br>
 > There are dummy/default values in the .yaml files (marked by a comment) - make sure that you filled them with your respective values
 
 > Some knowledge of linux, port-forwarding and kubernetes can help you out a lot here. I can't guarantee that you can get it to run without said knowledge, as troubleshooting won't be easy otherwise.
@@ -23,14 +23,14 @@ With this done, you can run `kubectl get pods -n kf2-server` - this will show yo
 
 > Note that the first installation can take a while - in my case, with HDDs, it took 20-30 minutes.
 
-### tl;dr
+# tl;dr Kind
 
 1. Install [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) and [kubectl](https://kubernetes.io/docs/tasks/tools/)
 2. `git clone https://github.com/patrick-men/KF2-Kubernetes.git`
 3. Change directory into cloned repository > `kind create cluster --config cluster.yaml --name kf2server-cluster`
 4. `kubectl create namespace kf2-server`
-4. `kubectl create -f .`
-_Optional_
+4. `kubectl create -f .` <br>
+_Optional_ <br>
 6. `kubectl get pods -n kf2-server`
 7. Copy the name of the pod listed
 8. `kubectl logs -f <pod-name> -n kf2-server` to show you live logs
@@ -49,14 +49,14 @@ With this done, we can start working on preparing the environment: Run `kubectl 
 
 With this done, you can run `kubectl get pods -n kf2-server` - this will show you the pod running the game server. Copy the name of the pod (should be something along the lines of `kf2-game-server-...`). Next up, run `kubectl logs -f <pod-name> -n kf2-server`: This shows you the live logs of the installation process of the server. Once it's done, you should see something along the lines of `DevOnline: Sending out playfab requests...`.
 
-### tl;dr
+# tl;dr minikube
 
 1. Install [minikube](https://minikube.sigs.k8s.io/docs/start/) and [kubectl](https://kubernetes.io/docs/tasks/tools/)
 2. `git clone https://github.com/patrick-men/KF2-Kubernetes.git`
 3. `minikube start -p kf2-server`
 4. `kubectl create namespace kf2-server`
-5. `kubectl create -f .`
-_Optional_
+5. `kubectl create -f .` <br>
+_Optional_ <br>
 6. `kubectl get pods -n kf2-server`
 7. Copy the name of the pod listed
 8. `kubectl logs -f <pod-name> -n kf2-server` to show you live logs
