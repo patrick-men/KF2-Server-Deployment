@@ -90,7 +90,7 @@ With everything set up, it's time to play.. but you first need to set up a few m
 Firstly, you need to find out what port on your local device/server listens and communicates to the game server. You can find that by running `kubectl get svc -n kf2-server` - this will show you what port you need to aim at.
 
 Example: <br>
-![Alt text](image.png) <br>
+![Alt text](port-forwarding-example.png) <br>
 
 In this screenshot we can see that the port 7777 has been mapped to 31992, and port 8080 to 31111. These are the ports that need to be port-forwarded to.
 
