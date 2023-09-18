@@ -10,16 +10,16 @@ It's a setup that doesn't advertise the server on the server list; without furth
 
 ## Setup Kind
 
-First, you need to [install Kind. Follow the official docs.](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). Install [kubectl](https://kubernetes.io/docs/tasks/tools/) as well - this allows you to deploy according to this doc.
+First, you need to [install Kind - follow the official docs](https://kind.sigs.k8s.io/docs/user/quick-start/#installation). Install [kubectl](https://kubernetes.io/docs/tasks/tools/) as well - this allows you to deploy according to this doc.
 
 Once that is done, make sure to clone this repo with `git clone https://github.com/patrick-men/KF2-Kubernetes.git`.
 
 Now we need to create the kind cluster. For this, I've prepared a `cluster.yaml` file that starts a cluster with the required settings. Simply change directory into the cloned repository, and run `kind create cluster --config cluster.yaml --name kf2server-cluster`. With the cluster running, we create a namespace for the server - this is for the sake of completeness regaring kubernetes + the .yaml files are set to deploy into a namespace with the given name - by running `kubectl create namespace kf2-server`.
-Now we need to deploy the kubernetes resources required for the server to run. Change directory into `/kind-deployment`, and then run `kubectl create -f .`.
+Now we need to deploy the kubernetes resources required for the server to run. Change directory into `/kind-deployment`, and then run `kubectl create -f`.
 
 ## _Optional, to see installation progress_
 
-With this done, you can run `kubectl get pods -n kf2-server` - this will show you the pod running the game server. Copy the name of the pod (should be something along the lines of `kf2-game-server-...`). Next up, run `kubectl logs -f <pod-name> -n kf2-server`: This shows you the live logs of the installation process of the server. Once it's done, you should see something along the lines of `DevOnline: Sending out playfab requests...`.
+With this done, you can run `kubectl get pods -n kf2-server` - this will show you the pod running the game server. Copy the name of the pod (should be something along the lines of `kf2-game-server-...`). Next up, run `kubectl logs -f <pod-name> -n kf2-server` : This shows you the live logs of the installation process of the server. Once it's done, you should see something along the lines of `DevOnline: Sending out playfab requests...`.
 
 > :warning: Note that the first installation can take a while - in my case, with HDDs, it took 20-30 minutes. :warning:
 
