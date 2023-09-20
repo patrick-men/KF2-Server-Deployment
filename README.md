@@ -2,12 +2,12 @@
 
 This repo collects a few methods for deploying a Killing Floor 2 server. **The methods chosen are all based on containerisation**, and make use of images provided by `LinuxGSM`.
 
-You will find a README/How-To for the following methods:
+You will find a README/How-To for the following methods (hard to easy):
 
 - Kubernetes (works on k8s, kind, minikube, etc.)
 - Helm
-- Docker
 - Docker-Compose
+- Docker
 
 > :warning: Note that you will need to port-forward in order for people to be able to join your server. Do this at your own risk, and make sure to know what the possible consequences of port-forwarding are! :warning:
 
